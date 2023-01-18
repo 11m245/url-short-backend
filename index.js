@@ -37,7 +37,7 @@ console.log("mongo connected");
 app.listen(PORT, () => console.log("app started in PORT", PORT));
 
 app.get("/", function (request, response) {
-  response.send("welcome to password reset api");
+  response.send("welcome to url shorten api");
 });
 
 async function generateHashedPassword(plainPassword) {
