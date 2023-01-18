@@ -91,13 +91,13 @@ export async function findLURL(lUrl) {
 }
 
 export async function getLURL(shortStr) {
-  console.log("ren");
+  // console.log("ren");
   let count = await client
     .db("urlShortenerTask")
     .collection("urls")
     .findOne({ shortStr: shortStr });
   // console.log("from count", count);
-  console.log("1");
+  // console.log("1");
   await client
     .db("urlShortenerTask")
     .collection("urls")
