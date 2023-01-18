@@ -47,7 +47,7 @@ async function generateHashedPassword(plainPassword) {
 }
 
 function checkDataValid(data) {
-  const { username, password, mobile, email, age, name } = data;
+  const { password, mobile, email, age, name } = data;
   const valid =
     email.length > 8 &&
     password.length > 7 &&
@@ -68,10 +68,16 @@ app.post("/signup", async function (request, response) {
     if (isValidData) {
       const formattedData = {
         ...data,
+        isActivated: false,
         password: await generateHashedPassword(data.password),
       };
       const result = await addUser(formattedData);
-      response.status(201).send({ message: "Signup Success try Login" });
+      response
+        .status(201)
+        .send({
+          message:
+            "Signup Success Active the Login by using Activation Link sent in Email",
+        });
     } else {
       response
         .status(400)
@@ -241,7 +247,7 @@ app.get("/getUsername", auth, async function (request, response) {
 
 app.get("/getLengthUrl", async function (request, response) {
   const shortStr = request.headers.shortstr;
-  // console.log("short str in server req is", shortStr);
+  console.log("short str in server req is", shortStr);
   const urlObj = await getLURL(shortStr);
   // console.log("url obj is", urlObj);
 

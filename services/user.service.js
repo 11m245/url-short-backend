@@ -91,13 +91,20 @@ export async function findLURL(lUrl) {
 }
 
 export async function getLURL(shortStr) {
-  // await client
-  //   .db("urlShortenerTask")
-  //   .collection("urls")
-  //   .updateOne(
-  //     { shortStr: shortStr },
-  //     { $set: { clickedCount: "$clickedCount" + 1 } }
-  //   );
+  console.log("ren");
+  let count = await client
+    .db("urlShortenerTask")
+    .collection("urls")
+    .findOne({ shortStr: shortStr });
+  // console.log("from count", count);
+  console.log("1");
+  await client
+    .db("urlShortenerTask")
+    .collection("urls")
+    .updateOne(
+      { shortStr: shortStr },
+      { $set: { clickedCount: count.clickedCount + 1 } }
+    );
   return await client
     .db("urlShortenerTask")
     .collection("urls")
@@ -119,17 +126,17 @@ export async function getTodayURLs(id) {
   ).toDateString();
   // console.log("db query calling");
   // console.log(new Date(startDateStr), new Date(endDateStr));
+
   return await client
     .db("urlShortenerTask")
     .collection("urls")
-    .find({
+    .count({
       generatedBy: id,
       $and: [
         { createdAt: { $gte: new Date(startDateStr) } },
         { createdAt: { $lt: new Date(endDateStr) } },
       ],
-    })
-    .count();
+    });
 }
 
 export async function getThisMonthURLs(id) {
