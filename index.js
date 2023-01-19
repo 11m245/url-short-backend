@@ -72,12 +72,10 @@ app.post("/signup", async function (request, response) {
         password: await generateHashedPassword(data.password),
       };
       const result = await addUser(formattedData);
-      response
-        .status(201)
-        .send({
-          message:
-            "Signup Success Active the Login by using Activation Link sent in Email",
-        });
+      response.status(201).send({
+        message:
+          "Signup Success Active the Login by using Activation Link sent in Email",
+      });
     } else {
       response
         .status(400)
@@ -142,13 +140,13 @@ async function mailer(userResetInfo) {
     },
   });
   // send mail with defined transporter object
-  const url = `${process.env.API_CLIENT}/change-password/${userResetInfo.resetToken}`;
+  const url = `${process.env.API_CLIENT}change-password/${userResetInfo.resetToken}`;
   let info = await transporter.sendMail({
     from: '"URL Shortener 👻" <sivaraj2siva@gmail.com>', // sender address
     to: `${userResetInfo.email}`, // list of receivers
     subject: "Password Reset for url shortener App", // Subject line
-    text: `Hi ${userResetInfo.name}, as you have requested to reset Password, this is the link please click and reset. ${process.env.API_CLIENT}/change-password/${userResetInfo.resetToken}`, // plain text body
-    html: `<div > <p>Hi ${userResetInfo.name} as you have requested to reset Password, this is the link please click and reset. ${process.env.API_CLIENT}/change-password/${userResetInfo.resetToken} </p> <b>Hello world?</b> <a href=${url} target="_blank">Reset Password</a></div>`, // html body
+    text: `Hi ${userResetInfo.name}, as you have requested to reset Password, this is the link please click and reset. ${url}`, // plain text body
+    html: `<div > <p>Hi ${userResetInfo.name} as you have requested to reset Password, this is the link please click and reset.  ${url} </p> <b>Hello world?</b> <a href=${url} target="_blank">Reset Password</a></div>`, // html body
   });
   console.log("Message sent: %s", info.messageId);
   // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
