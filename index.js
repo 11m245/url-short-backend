@@ -146,7 +146,7 @@ async function mailer(userResetInfo) {
     to: `${userResetInfo.email}`, // list of receivers
     subject: "Password Reset for url shortener App", // Subject line
     text: `Hi ${userResetInfo.name}, as you have requested to reset Password, this is the link please click and reset. ${url}`, // plain text body
-    html: `<div > <p>Hi ${userResetInfo.name} as you have requested to reset Password, this is the link please click and reset.  ${url} </p> <b>Hello world?</b> <a href=${url} target="_blank">Reset Password</a></div>`, // html body
+    html: `<div > <p>Hi ${userResetInfo.name} as you have requested to reset Password, this is the link please click and reset.  ${url} </p> <b>forgot? click this link to reset</b> <a href=${url} target="_blank">Reset Password</a></div>`, // html body
   });
   console.log("Message sent: %s", info.messageId);
   // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
