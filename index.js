@@ -140,7 +140,7 @@ async function mailer(userResetInfo) {
     },
   });
   // send mail with defined transporter object
-  const url = `${process.env.API_CLIENT}change-password/${userResetInfo.resetToken}`;
+  const url = `${process.env.API_CLIENT}/change-password/${userResetInfo.resetToken}`;
   let info = await transporter.sendMail({
     from: '"URL Shortener 👻" <sivaraj2siva@gmail.com>', // sender address
     to: `${userResetInfo.email}`, // list of receivers
